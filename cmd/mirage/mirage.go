@@ -21,8 +21,6 @@ import (
 	v1 "github.com/arnumina/swag.mirage/internal/api/v1"
 )
 
-const _defaultPort = 65533
-
 func initialize(r *mux.Router, s *service.Service) {
 	systemd.Routes(r.PathPrefix("/api/systemd").Subrouter())
 	v1.Routes(r.PathPrefix("/api/v1").Subrouter(), s)
@@ -36,12 +34,6 @@ func Run(version, builtAt string) error {
 		"mirage",
 		version,
 		builtAt,
-		swag.Config(
-			"default",
-			options.Options{
-				"port": _defaultPort,
-			},
-		),
 		swag.Server(
 			"http",
 			options.Options{

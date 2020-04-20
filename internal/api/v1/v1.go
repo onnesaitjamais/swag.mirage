@@ -35,6 +35,8 @@ func getAllServices(s *service.Service) http.HandlerFunc {
 			return
 		}
 
+		services.Sort("Name", "FQDN", "Port")
+
 		if err := rr.JSONOk(services); err != nil {
 			rr.Error500(err)
 			return
